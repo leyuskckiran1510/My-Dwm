@@ -101,6 +101,9 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,          	XK_Right, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/change bup",NULL } }},
 	{ MODKEY|ControlMask,          	XK_Left, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/change bdown",NULL } }},
 
+	// ScreenRecording .. 
+	{ MODKEY|ControlMask,          	XK_r, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/screenrec",NULL } }},
+	
 	//Audio Handler
 	//mute/unmute
 	{ MODKEY|ControlMask,          	XK_l, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/audioch m",NULL } }},
