@@ -300,9 +300,12 @@ applyrules(Client *c)
 		{
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
+			//Added By Me
+			Arg a = {.ui= r->tags};
+			view(&a);
+			//Ends here
 			for (m = mons; m && m->num != r->monitor; m = m->next);
-			if (m)
-				c->mon = m;
+			if (m)c->mon = m;
 		}
 	}
 	if (ch.res_class)

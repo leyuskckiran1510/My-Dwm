@@ -27,7 +27,7 @@ static const Rule rules[] = {
     //     /^WM_NAME/{sub(/.* =/, "title:"); print}'
 
 	/* class             instance          title                      tags mask     isfloating   monitor */
-	{ "firefox",         NULL,             NULL,                      1,       0,           -1 },
+	{ "firefox",         NULL,             NULL,                      1,       		0,           -1 },
 	{ "Brave-browser",  "brave-browser",  "New Tab - Brave",          1,            1,           -1 },
 	{ "Brave-browser",  "brave-browser",  "New Private Tab - Brave",  1<<5,         0,           -1 },
 	{ "Sublime_text",   "sublime_text",    NULL,                      1<<1,         1,           -1 },
@@ -67,7 +67,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", col_gray
 static const char *termcmd[]  = { "st","-t","terminal", NULL };
 static const char *brave[] = {"brave-browser",NULL};
 static const char *fileexp[] = {"nautilus",NULL};
-static const char *screenshot[] = {"gnome-screenshot","--interactive",NULL};
+//static const char *screenshot[] = {"gnome-screenshot","--interactive",NULL};
 static const char *clipboard[] = {"copyq","toggle",NULL};
 
 
@@ -80,7 +80,8 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_w, 	   spawn,          {.v = brave } },
 	{ Mod4Mask,           			XK_e, 	   spawn,          {.v = fileexp } },
-	{ Mod4Mask|ShiftMask,     		XK_s, 	   spawn,          {.v = screenshot } },
+	//{ Mod4Mask|ShiftMask,     		XK_s, 	   spawn,          {.v = screenshot } },
+	
 	{ Mod4Mask,     				XK_c, 	   spawn,          {.v = clipboard } },
 
 	
@@ -89,7 +90,7 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,          	XK_z, 	   spawn,          {.v = transparency_dec } },
 
 
-
+	{ Mod4Mask|ShiftMask,     		XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/scrsht", NULL } }},
 	{ MODKEY|ControlMask,          	XK_b, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/bgchange", NULL } }},
 	{ MODKEY|ControlMask,          	XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/allscript", NULL } }},
 
@@ -103,6 +104,9 @@ static const Key keys[] = {
 
 	// ScreenRecording .. 
 	{ MODKEY|ControlMask,          	XK_r, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/screenrec",NULL } }},
+
+	// AudioRecording .. 
+	{ MODKEY|ControlMask,          	XK_v, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/voicerec",NULL } }},
 	
 	//Audio Handler
 	//mute/unmute
