@@ -1,0 +1,17 @@
+#! /usr/bin/bash
+
+
+
+function _start(){
+    base_dir="/home/tester/Audio/TimeLapse"
+    year=$(date +%Y)
+    month=$(date +%m)
+    day=$(date +%d)
+    dir="$base_dir/$year/$month/$day"
+    mkdir -p "$dir"
+    filename="$dir/$(date +%H_%M_%S).mp3"
+    arecord -c 2  -f S16_LE "$filename"
+    dunstify -a "audiorecording.." -u low -r "9211"  -i "~/Pictures/icons/tick.png" "Audio-Recording Done" -t  4000
+}
+
+_start

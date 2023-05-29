@@ -1,0 +1,28 @@
+#!/usr/bin/bash
+
+function failed(){
+	ch=$(echo -e "exit\ntryagain" | dmenu -p "Password Wrong") 
+	case $ch in
+		"tryagain" ) slec;;
+	esac
+
+
+}
+
+function take_password(){
+	password=$(echo "" | dmenu -p "$wifi_name[Password]" -l 3)
+	nmcli dev wifi connect "$wifi_name" password "$password" &>/dev/null || failed
+}
+
+
+function slec(){
+	wifi_name=$(nmcli dev wifi list | cut -b 9-48| dmenu -p "Select Your Wifi" -i -l 5 |awk '{print$2}')
+	if [ -n "$wifi_name" ]; then
+	  nmcli con up "$wifi_name" &>/dev/null || take_password
+	fi
+	
+
+}
+
+
+slec

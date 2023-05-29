@@ -1,0 +1,73 @@
+#!/usr/bin/bash
+
+c='
+#if 0
+gcc -o $0.out $0 -lm && $0.out $@
+rm $0.out &>/dev/null
+exit
+#endif
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
+int main(){
+    printf("Hello creator in c\n");
+    return 0;
+}
+'
+cpp='
+#if 0
+g++ -o $0.out $0 -lm && $0.out $@
+rm $0.out &>/dev/null
+exit
+#endif
+#include <iostream>
+
+int main(){
+    std::cout<<"Hello creator in cpp"<<std::endl;
+    return 0;
+}
+'
+py='#!/usr/bin/python3
+print("Hello creator in python")
+'
+
+name=""
+_dir_check(){
+    cur_dir=$(pwd)
+    if [ -n "$(pwd |grep -Ei '(Code|kode|program|ctf|work)(s)?')" ];then
+        if [ -n "$(pwd |grep -Ei  '(C\+\+|cpp|cplusplus|cplusp|cpplus|bigc|nextc)')" ];then
+            name="$1.cpp"
+            echo "$cpp" > "$name" && chmod +x "$name" && "./$name"
+        elif [ -n "$(echo cur_dir|grep -Ei '(C|system|increase|speed)(s)?')" ];then
+            name="$1.c"
+            echo "$c" >  "$name" && chmod +x "$name" && "./$name"
+        fi
+    else
+        name="$1.py"
+        echo "$py" >  "$name" && chmod +x "$name" && "./$name"
+    fi
+}
+
+
+_creator(){
+    r=$((100 + RANDOM%155));
+    g=$((100 + RANDOM%155));
+    b=$((100 + RANDOM%155));
+
+    echo -e "\033[38;2;$r;$g;$b;28mCreating the File \033[38;2;$b;$r;$g;1m$1\033[38;2;$g;$r;$b;28m"
+    case $1 in
+        *.c ) echo "$c" > $1 && chmod +x $1 && ./$1;;
+        *.cpp ) echo "$cpp" > $1 && chmod +x $1 && ./$1;;
+        *.py ) echo "$py" > $1 && chmod +x $1 && ./$1;;
+        *)  _dir_check $1;;
+    esac
+    if [ $? -eq 0 ];then
+        echo -e "\033[0m\033[38;2;$r;$g;$b;28mFile created sucessfully $1\033[0m"
+    else
+        echo -e "\033[0m\033[38;2;$r;$g;$b;28mFile creation Failed $1\033[0m"
+        rm $name  
+    fi
+}
+
+_creator $1

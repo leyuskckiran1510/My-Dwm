@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Set the base directory for the timelapse images
+
+
+
+exist=$(ps aux | grep -v grep | grep vrecord.start)
+if [[ -z "$exist" ]];then
+    ~/scripts/vrecord.start
+else
+    ps aux | grep -v grep | grep vrecord.start|awk '{print$2}' | xargs -I{} kill {}
+fi

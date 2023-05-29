@@ -1,0 +1,21 @@
+#!/usr/bin/bash
+
+#feh --bg-fill ~/Pictures/wallpaper/wallpaper.png
+#!/bin/bash
+
+# Get the list of wallpaper files
+wallpapers=(~/Pictures/wallpaper/*.png)
+
+# Select a random wallpaper file
+random_wallpaper=${wallpapers[$RANDOM % ${#wallpapers[@]}]}
+
+#Creating the copy of the random image
+cp  $random_wallpaper ~/Pictures/wallpaper/wallpaper_the_copy.png &>/dev/null || echo "samefile"
+
+feh --bg-fill "$random_wallpaper"
+
+#convert -crop 100%x120%+0-30%  ~/Pictures/wallpaper/wallpaper_the_copy.png  ~/Pictures/wallpaper/wallpaper_the_copy.png
+#convert -crop 100%x120%+0-30%  ~/Pictures/wallpaper/test.png  ~/Pictures/wallpaper/wallpaper_the_copy.png
+
+# Make a copy for brave browser
+cp ~/Pictures/wallpaper/wallpaper_the_copy.png /home/tester/.config/BraveSoftware/Brave-Browser/Default/sanitized_background_images/wallpaper.png

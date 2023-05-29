@@ -1,0 +1,28 @@
+#!/usr/bin/bash
+
+
+
+
+_togglemute(){
+	pactl set-sink-mute 0 toggle
+}
+
+_switchport(){
+	active_ch=$(pacmd list-sinks  |awk '/\* index/{print$3}')  # ------------v------ to remove tabs as tabs dont get rendered in dmenu
+ 	pacmd list-sinks | grep -v active |awk -F ':' '/-output-/{print$1}' | awk '{print$1}' |dmenu -p "Select Audio Port [name]" -i -l 4 | awk '/[a-zA-Z0-9\-]/{print$1}' |xargs -I{} pactl set-sink-port 1 {}
+
+}
+
+_switchch(){
+	check=$(pactl list short sinks|grep mono_audio)
+	if [ -z "$check" ]; then
+		pacmd load-module module-remap-sink sink_name=mono_audio master=alsa_output.pci-0000_00_1f.3.analog-stereo channels=1 channel_map=mono
+	fi
+	pactl list short sinks | awk '{print$2"    "$4"    "$5}'|dmenu -p "Select Audio Channel [name|bitrate|channel]" -i -l 4 |awk '{print$1}'|xargs -I{} pactl set-default-sink {}
+}
+
+case $1 in
+	"p" )_switchport;;
+	"c") _switchch;;
+	"m") _togglemute;;
+esac

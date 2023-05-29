@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+function _start(){
+
+    base_dir="/home/tester/Pictures/TimeLapse"
+
+    delay=1
+
+    year=$(date +%Y)
+    month=$(date +%m)
+    day=$(date +%d)
+
+    dir="$base_dir/$year/$month/$day"
+
+    mkdir -p "$dir"
+    dim=$(xdpyinfo | grep dimensions | awk '{print $2;}')
+    #dunstify -a "screenrecording.." -u low -r "9"  -i "~/Pictures/icons/rec.png" "Recording on progress"
+
+    while true; do
+        mkdir -p "$dir"
+        filename="$dir/$(date +%H_%M_%S).jpg"
+        ffmpeg -f x11grab -s "$dim"  -i :0.0 -vframes 1 "$filename" &>/dev/null
+        sleep $delay
+    done
+}
+
+
+_start

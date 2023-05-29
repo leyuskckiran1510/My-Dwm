@@ -1,0 +1,25 @@
+#!/usr/bin/bash
+
+function volume(){
+	amixer -q sset Master $1
+	volume=$(amixer sget Master | grep -oP '\d+(?=%)')
+	dunstify -a "changevolume" -u low -r "9993" -h int:value:"$volume" -i "~/Pictures/icons/sound.png" "Volume: ${volume}%" -t 2000 &
+}
+
+function brigtness(){
+	brigt=$(cat /sys/class/backlight/intel_backlight/brightness)
+	brigt=$(($brigt+$1))
+	echo "$brigt" | tee /sys/class/backlight/intel_backlight/brightness &>/dev/null || brigt=$(($brigt-$1))
+	dunstify -a "changebrightness" -u low -r "9992" -h double:value:$brigt -i "~/Pictures/icons/brightness.png" "Brightness:$(($brigt*100/7500))%" -t 2000 &
+}
+
+case $1 in
+	"vup" ) volume 2%+
+		;;
+	"vdown" ) volume 2%-
+		;;
+	"bup" )  brigtness 100
+		;;
+	"bdown" )  brigtness -100
+		;;
+esac

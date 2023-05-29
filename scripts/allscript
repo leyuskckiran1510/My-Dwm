@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+script=$(ls ~/scripts | dmenu -p "Choose A Script To Run" -l 5)
+~/scripts/$script
