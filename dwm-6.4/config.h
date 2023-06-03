@@ -83,6 +83,7 @@ static const char *transparency_inc[] = {"picom-trans","-co","+5",NULL};
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ Mod4Mask,                     XK_a,      spawn,          {.v = dmenucmd } },
+	{ Mod4Mask,                     		0,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_w, 	   spawn,          {.v = brave } },
 	{ Mod4Mask,           			XK_e, 	   spawn,          {.v = fileexp } },
@@ -98,6 +99,7 @@ static const Key keys[] = {
 
 	{ Mod4Mask|ShiftMask,     		XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/scrsht", NULL } }},
 	{ MODKEY|ControlMask,          	XK_b, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/bgchange", NULL } }},
+	{ Mod4Mask,          	        XK_period,  spawn,         {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/emoji_chooser.bash", NULL } }},
 	{ MODKEY|ControlMask,          	XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/allscript", NULL } }},
 
 	// Volume
