@@ -111,42 +111,63 @@ float alpha = 1;
 float alphaOffset = 0.0;
 float alphaUnfocus;
 
-/* Terminal colors (16 first used in escape sequence) */
+// #include "/home/tester/.cache/wal/colors-wal-st.h"
+// /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	"#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
-	"#cc241d",
-	"#98971a",
-	"#d79921",
-	"#458588",
-	"#b16286",
-	"#689d6a",
-	"#a89984",
-	"#928374",
-	"#fb4934",
-	"#b8bb26",
-	"#fabd2f",
-	"#83a598",
-	"#d3869b",
-	"#8ec07c",
-	"#ebdbb2",
+	// "#282828", /* hard contrast: #1d2021 / soft contrast: #32302f */
+	// "#cc241d",
+	// "#98971a",
+	// "#d79921",
+	// "#458588",
+	// "#b16286",
+	// "#689d6a",
+	// "#a89984",
+	// "#928374",
+	// "#fb4934",
+	// "#b8bb26",
+	// "#fabd2f",
+	// "#83a598",
+	// "#d3869b",
+	// "#8ec07c",
+	// "#ebdbb2",
+  [0] = "#090d0f", /* black   */
+  [1] = "#5B4B31", /* red     */
+  [2] = "#3C474D", /* green   */
+  [3] = "#972A20", /* yellow  */
+  [4] = "#C74521", /* blue    */
+  [5] = "#E1AC3D", /* magenta */
+  [6] = "#F8D65E", /* cyan    */
+  [7] = "#9dc5bb", /* white   */
+
+  /* 8 bright colors */
+  [8]  = "#6d8982",  /* black   */
+  [9]  = "#5B4B31",  /* red     */
+  [10] = "#3C474D", /* green   */
+  [11] = "#972A20", /* yellow  */
+  [12] = "#C74521", /* blue    */
+  [13] = "#E1AC3D", /* magenta */
+  [14] = "#F8D65E", /* cyan    */
+  [15] = "#9dc5bb", /* white   */
 	[255] = 0,
 	/* more colors can be added after 255 to use with DefaultXX */
 	"#add8e6", /* 256 -> cursor */
 	"#555555", /* 257 -> rev cursor*/
 	"#282828", /* 258 -> bg */
 	"#ebdbb2", /* 259 -> fg */
+	"#181818",
 };
 
 
-/*
- * Default colors (colorname index)
- * foreground, background, cursor, reverse cursor
- */
-unsigned int defaultfg = 259;
-unsigned int defaultbg = 258;
+// /*
+//  * Default colors (colorname index)
+//  * foreground, background, cursor, reverse cursor
+//  */
+unsigned int defaultfg = 6;//259;
+unsigned int defaultbg = 10;//258;
 unsigned int defaultcs = 256;
 unsigned int defaultrcs = 257;
-unsigned int background = 258;
+unsigned int background = 260;//258;
+
 
 /*
  * Default shape of cursor
@@ -155,7 +176,7 @@ unsigned int background = 258;
  * 6: Bar ("|")
  * 7: Snowman ("☃")
  */
-static unsigned int cursorshape = 2;
+static unsigned int cursorshape = 6;
 
 /*
  * Default columns and rows numbers
@@ -272,8 +293,8 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_Down,        kscrolldown,    {.i =  1} },
 	{ MODKEY,               XK_u,           kscrollup,      {.i = -1} },
 	{ MODKEY,               XK_d,           kscrolldown,    {.i = -1} },
-	{ MODKEY,		XK_s,		changealpha,	{.f = -0.05} },
-	{ MODKEY,		XK_a,		changealpha,	{.f = +0.05} },
+	{ MODKEY,					XK_s,				 changealpha,	  {.f = -0.05} },
+	{ MODKEY,					XK_a,			    changealpha,	  {.f = +0.05} },
 	{ TERMMOD,              XK_Up,          zoom,           {.f = +1} },
 	{ TERMMOD,              XK_Down,        zoom,           {.f = -1} },
 	{ TERMMOD,              XK_K,           zoom,           {.f = +1} },

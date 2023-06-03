@@ -10,12 +10,15 @@ wallpapers=(~/Pictures/wallpaper/*.png)
 random_wallpaper=${wallpapers[$RANDOM % ${#wallpapers[@]}]}
 
 #Creating the copy of the random image
-cp  $random_wallpaper ~/Pictures/wallpaper/wallpaper_the_copy.png &>/dev/null || echo "samefile"
+#cp  $random_wallpaper ~/Pictures/wallpaper/wallpaper_the_copy.png &>/dev/null || echo "samefile"
 
-feh --bg-fill "$random_wallpaper"
+#feh --bg-fill "$random_wallpaper"
+
+wal -i $random_wallpaper 
 
 #convert -crop 100%x120%+0-30%  ~/Pictures/wallpaper/wallpaper_the_copy.png  ~/Pictures/wallpaper/wallpaper_the_copy.png
 #convert -crop 100%x120%+0-30%  ~/Pictures/wallpaper/test.png  ~/Pictures/wallpaper/wallpaper_the_copy.png
 
 # Make a copy for brave browser
-cp ~/Pictures/wallpaper/wallpaper_the_copy.png /home/tester/.config/BraveSoftware/Brave-Browser/Default/sanitized_background_images/wallpaper.png
+#cp ~/Pictures/wallpaper/wallpaper_the_copy.png /home/tester/.config/BraveSoftware/Brave-Browser/Default/sanitized_background_images/wallpaper.png
+cp  $random_wallpaper  /home/tester/.config/BraveSoftware/Brave-Browser/Default/sanitized_background_images/wallpaper.png

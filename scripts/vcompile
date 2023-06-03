@@ -5,40 +5,51 @@ year=$(date +%Y)
 month=$(date +%m)
 day=$(date +%d)
 
+# this was old and comparativly slower method to compile
+# function final(){
+#     vids="/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
+#     ffmpeg -safe 0 -f concat -i "$vids" -c:v libx264 -preset fast -pix_fmt yuv420p "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4" \
+#     >> "/home/tester/Videos/TimeLapse/$year/$month/$day/final_compile.log" || echo "[Final] There Was Some Error Check Log File"
 
-function final(){
-    vids="/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
-    ffmpeg -safe 0 -f concat -i "$vids" -c:v libx264 -preset fast -pix_fmt yuv420p "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4" \
-    >> "/home/tester/Videos/TimeLapse/$year/$month/$day/final_compile.log" || echo "[Final] There Was Some Error Check Log File"
+# }
+
+# function compile2(){
+#     output=""
+#     if [[ $1 == *".used" ]]; then
+#         output="resedue.mp4"
+#     else
+#         output="todaycompile.mp4"
+#         echo "file '/home/tester/Videos/random/spong_bob_the_next_day.mp4' " >> "/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
+#     fi
+#     ffmpeg -framerate 30 -pattern_type glob -i "$1/*.jpg" -c:v libx264 -preset fast -threads 4 -f mp4 "/home/tester/Videos/TimeLapse/$year/$month/$day/$output" \
+#     >> "/home/tester/Videos/TimeLapse/$year/$month/$day/compile.log" || echo "[Head] ($output) There Was Some Error Check Log File"
+#     echo "file '/home/tester/Videos/TimeLapse/$year/$month/$day/$output'" >> "/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
+
+# }
+
+
+# fatser as now it compiles the images direclty into a video file insted of waiting to compile
+# each individual folder into a single video and concanate it
+list_file(){
+    ls $1/* | awk -F ':' '{print($1)}' | xargs -I@ echo "file '@'" >> "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"
 
 }
 
-function compile(){
-    output=""
-    if [[ $1 == *".used" ]]; then
-        output="resedue.mp4"
-    else
-        output="todaycompile.mp4"
-        echo "file '/home/tester/Videos/random/spong_bob_the_next_day.mp4' " >> "/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
-    fi
-    ffmpeg -framerate 30 -pattern_type glob -i "$1/*.jpg" -c:v libx264 -preset fast -threads 4 -f mp4 "/home/tester/Videos/TimeLapse/$year/$month/$day/$output" \
-    >> "/home/tester/Videos/TimeLapse/$year/$month/$day/compile.log" || echo "[Head] ($output) There Was Some Error Check Log File"
-    echo "file '/home/tester/Videos/TimeLapse/$year/$month/$day/$output'" >> "/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
-
+compile(){
+    ffmpeg -safe 0 -f concat -i "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"  -c:v libx264 -preset fast -threads 4 -pix_fmt yuv420p "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4"
 }
+
+
 function _ready(){
     base_dir="/home/tester/Pictures/TimeLapse"
     mkdir -p "/home/tester/Videos/TimeLapse/$year/$month/$day/"
-    dir="$base_dir/$year/$month/$((day - 1))"
+    today_now="$(date +'%Y/%m/%d')"
+    yesterday=`date --date=$today_now'-1 day' +'%Y/%m/%d'`
+    dir="$base_dir/$yesterday"
     if [ -d "$dir" ]; then
-        mv "$dir" "$dir.used"
-        compile "$dir.used"
+        mv "$dir" "$dir.used" && list_file "$dir.used"
     fi
     dir="$base_dir/$year/$month/$day"
-    mv "$dir" "$dir.done"
-    compile "$dir.done"
-    final
+    mv "$dir" "$dir.done" && list_file "$dir.done" && compile 
 }
-
-
 _ready

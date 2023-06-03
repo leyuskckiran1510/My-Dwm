@@ -18,6 +18,7 @@ function _start(){
     #dunstify -a "screenrecording.." -u low -r "9"  -i "~/Pictures/icons/rec.png" "Recording on progress"
 
     while true; do
+
         mkdir -p "$dir"
         filename="$dir/$(date +%H_%M_%S).jpg"
         ffmpeg -f x11grab -s "$dim"  -i :0.0 -vframes 1 "$filename" &>/dev/null
