@@ -1,3 +1,4 @@
 #!/usr/bin/bash
 # this is tool or script to copy selected scrren shot to clip board
 (scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f && rm $f' && dunstify -a "dummy" -r 9013 "Copied Selection To Clipboard") || dunstify "ErrorCopying"
+#scrot -s '/home/tester/Pictures/screenshots/temp/%F_%T_$wx$h.png'

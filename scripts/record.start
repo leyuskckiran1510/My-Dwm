@@ -15,7 +15,11 @@ function _start(){
 
     mkdir -p "$dir"
     dim=$(xdpyinfo | grep dimensions | awk '{print $2;}')
-    #dunstify -a "screenrecording.." -u low -r "9"  -i "~/Pictures/icons/rec.png" "Recording on progress"
+#    #dunstify -a "screenrecording.." -u low -r "9"  -i "~/Pictures/icons/rec.png" "Recording on progress"
+#    book_mark_path="/home/tester/.config/gtk-3.0"
+#    total=$(cat "$book_mark_path/bookmarks"| wc -l)
+#    cat "$book_mark_path/bookmarks"  | head "-$total" | tee "$book_mark_path/bookmarks"
+#    echo "file://$dir" | tee -a "$book_mark_path/bookmarks"
 
     while true; do
 

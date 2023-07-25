@@ -1,0 +1,4 @@
+book_mark_path="/home/tester/.config/gtk-3.0"
+total=$(cat "$book_mark_path/bookmarks"| wc -l)
+cat "$book_mark_path/bookmarks"  | head "-$total" | tee "$book_mark_path/new_bookmarks"
+echo $1 | tee -a "$book_mark_path/new_bookmarks"

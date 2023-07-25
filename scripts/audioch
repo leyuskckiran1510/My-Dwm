@@ -10,7 +10,7 @@ _togglemute(){
 _switchport(){
 	active_ch=$(pacmd list-sinks  |awk '/\* index/{print$3}')  # ------------v------ to remove tabs as tabs dont get rendered in dmenu
  	pacmd list-sinks | grep -v active |awk -F ':' '/-output-/{print$1}' | awk '{print$1}' |dmenu -p "Select Audio Port [name]" -i -l 4 | awk '/[a-zA-Z0-9\-]/{print$1}' |xargs -I{} pactl set-sink-port 1 {}
-
+	# hello world		
 }
 
 _switchch(){

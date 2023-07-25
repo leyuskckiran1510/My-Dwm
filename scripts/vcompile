@@ -32,11 +32,19 @@ day=$(date +%d)
 # each individual folder into a single video and concanate it
 list_file(){
     ls $1/* | awk -F ':' '{print($1)}' | xargs -I@ echo "file '@'" >> "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"
-
+    echo "Done Listing.. this files...$1"
+    echo -e "\n\n"
 }
 
+_book_mark(){
+    book_mark_path="/home/tester/.config/gtk-3.0"
+    total=$(cat "$book_mark_path/bookmarks"| wc -l)
+    total=$(bc <<< "$total-1")
+    cat "$book_mark_path/bookmarks"  | head "-$total" | tee "$book_mark_path/bookmarks"
+    echo "file:///home/tester/Videos/TimeLapse/$year/$month/$day" | tee -a "$book_mark_path/bookmarks"
+}
 compile(){
-    ffmpeg -safe 0 -f concat -i "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"  -c:v libx264 -preset fast -threads 4 -pix_fmt yuv420p "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4"
+    ffmpeg -safe 0 -f concat -i "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"  -c:v libx264 -preset fast -threads 4 "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4" && _book_mark 
 }
 
 
@@ -49,7 +57,13 @@ function _ready(){
     if [ -d "$dir" ]; then
         mv "$dir" "$dir.used" && list_file "$dir.used"
     fi
-    dir="$base_dir/$year/$month/$day"
-    mv "$dir" "$dir.done" && list_file "$dir.done" && compile 
+    dir2="$base_dir/$year/$month/$day"
+    mv "$dir2" "$dir2.done" && list_file "$dir2.done"
+    compile
+
+#    echo "check the file and make sure it has everything needed If Yes the Run this"
+#    echo ffmpeg -safe 0 -f concat -i "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"  -c:v libx264 -preset fast -threads 4 "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4"
+
 }
 _ready
+# _book_mark
