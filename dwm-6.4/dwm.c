@@ -193,6 +193,7 @@ static void resize(Client *c, int x, int y, int w, int h, int interact);
 static void resizeclient(Client *c, int x, int y, int w, int h);
 static void resizemouse(const Arg *arg);
 static void restack(Monitor *m);
+static void rotateview(const Arg *arg); //Leyuskc added
 static void run(void);
 static void scan(void);
 static int sendevent(Client *c, Atom proto);
@@ -2046,6 +2047,37 @@ view(const Arg *arg)
 	focus(NULL);
 	arrange(selmon);
 }
+
+// __start__
+void
+rotateview(const Arg *arg)
+{
+	/*
+	Added By Leyuskc
+	 it cycles through each viewport 
+	*/
+	int x = arg->i;
+	int current = (selmon->tagset[selmon->seltags] & TAGMASK);
+	if(x>0)
+	{
+		selmon->tagset[selmon->seltags] = current << x;
+		if(!(selmon->tagset[selmon->seltags] & TAGMASK)){
+			selmon->tagset[selmon->seltags] = 1;
+		}
+	}
+
+	else{
+		x=-x;
+		selmon->tagset[selmon->seltags] = current >> x;
+		if(!(selmon->tagset[selmon->seltags] & TAGMASK)){
+			selmon->tagset[selmon->seltags] = (1<<(LENGTH(tags)-1));
+		}
+	}
+	
+	focus(NULL);
+	arrange(selmon);
+}	
+// __end__
 
 Client *
 wintoclient(Window w)

@@ -38,11 +38,12 @@ static const Rule rules[] = {
 	{ "Brave-browser",  "brave-browser",  "New Private Tab - Brave",  1<<5,         0,           -1 },
 	{ "Sublime_text",   "sublime_text",    NULL,                      1<<1,         1,           -1 },
 	{"Org.gnome.Nautilus","org.gnome.Nautilus", NULL,                 1<<2,         0,           -1 },
-	{"Nemo",			  "nemo",               NULL,                 1<<2,         0,           -1 },
-	{"vlc",               "vlc",              NULL,                   1<<6,         0,           -1 },
-	{"Insomnia",     "insomnia",              NULL,                   1<<4,         0,           -1 },
-	{"St",     "st",                          "terminal",             1<<3,         0,           -1 },
-	{"XClock", "xclock",NULL,127, 1 , -1 },
+	{"Nemo",			  "nemo",          NULL,                      1<<2,         0,           -1 },
+	{"vlc",               "vlc",           NULL,                      1<<6,         0,           -1 },
+	{"Insomnia",        "insomnia",        NULL,                      1<<4,         0,           -1 },
+	{"St",              "st",              "terminal",                1<<3,         0,           -1 },
+	{"XClock",          "xclock",			NULL,				      127, 			1 , 		 -1 },
+	{"Upwork",           NULL,				NULL,                     1<<3,         0,           -1 },
 
 };
 
@@ -138,6 +139,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ Mod4Mask,                     XK_Tab,    view,           {0} },
+
+	{ Mod4Mask|ShiftMask,           XK_Tab,    rotateview,           {.i = +1} },
+	{ Mod4Mask|ControlMask,         XK_Tab,    rotateview,           {.i = -1} },
 
 	{ MODKEY,                       XK_Tab,    focusstack,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Tab,    focusstack,     {.i = -1 } },
