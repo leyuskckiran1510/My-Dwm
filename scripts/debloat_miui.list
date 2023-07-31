@@ -1,0 +1,141 @@
+com.amazon.appmanager
+com.android.browser
+com.android.chrome
+com.android.email
+com.android.thememanager
+com.android.wallpaper.livepicker
+com.facebook.services
+com.facebook.system
+com.facebook.appmanager
+com.google.android.apps.docs
+com.google.android.apps.maps
+com.google.android.apps.photos
+com.google.android.apps.tachyon
+com.google.android.feedback
+com.google.android.gm
+com.google.android.googlequicksearchbox
+com.google.android.marvin.talkback
+com.google.android.music
+com.google.android.syncadapters.calendar
+com.google.android.syncadapters.contacts
+com.google.android.talk
+com.google.android.tts
+com.google.android.videos
+com.google.android.youtube
+com.mfashiongallery.emag
+com.mi.android.globalpersonalassistant
+com.mi.dlabs.vr
+com.mi.globalTrendNews
+com.mi.global.bbs
+com.mi.global.shop
+com.mi.webkit.core
+com.micredit.in
+com.milink.service
+com.mipay.wallet.id
+com.mipay.wallet.in
+com.miui.analytics
+com.miui.android.fashiongallery
+com.miui.bugreport
+com.miui.cloudbackup
+com.miui.cloudservice
+com.miui.cloudservice.sysbase
+com.miui.micloudsync
+com.miui.hybrid
+com.miui.hybrid.accessory
+com.miui.klo.bugreport
+com.miui.miservice
+com.miui.miwallpaper
+com.miui.msa.global
+com.miui.player
+com.miui.providers.weather
+com.miui.screenrecorder
+com.miui.translationservice
+com.miui.translation.kingsoft
+com.miui.translation.xmcloud
+com.miui.translation.youdao
+com.miui.touchassistant
+com.miui.userguide
+com.miui.videoplayer
+com.miui.virtualsim
+com.miui.weather2
+com.miui.yellowpage
+com.netflix.partner.activation
+com.swiftkey.languageprovider
+com.swiftkey.swiftkeyconfigurator
+com.xiaomi.account
+com.xiaomi.discover
+com.xiaomi.glgm
+com.xiaomi.joyose
+com.xiaomi.location.fused
+com.xiaomi.micloud.sdk
+com.xiaomi.midrop
+com.xiaomi.mipicks
+com.xiaomi.miplay_client
+com.xiaomi.mirecycle
+com.xiaomi.oversea.ecom
+com.xiaomi.payment
+com.xiaomi.providers.appindex
+com.xiaomi.xmsfpackage:com.milink.service
+package:com.xiaomi.powerchecker
+package:com.xiaomi.account
+package:com.miui.phone.carriers.overlay.vodafone
+package:com.xiaomi.micloud.sdk
+package:free.programming.programming
+  package:com.android.updater
+  package:com.qualcomm.uimremoteclient
+package:com.miui.securityadd
+package:com.android.mms.service
+  package:com.mi.healthglobal
+  package:com.miui.msa.global
+
+  package:com.miui.securitycenter
+  package:com.quicinc.voice.activation
+  package:android.autoinstalls.config.Xiaomi.qssi
+ package:com.google.android.configupdater
+  package:com.qualcomm.uimremoteserver
+  package:com.miui.guardprovider
+    package:com.miui.backup
+    package:com.miui.micloudsync
+    package:com.xiaomi.barrage
+    package:com.miui.daemon
+    package:com.google.android.marvin.talkback
+    package:com.miui.hybrid
+    package:com.longcheertel.sarauth
+    package:com.miui.phrase
+    package:com.miui.player
+    package:com.miui.miservice
+    package:com.android.provision
+    package:org.codeaurora.ims
+    package:com.android.dreams.basic
+    package:com.fido.xiaomi.uafclient
+    package:com.miui.bugreport
+    package:com.fido.asm
+    package:com.miui.cloudbackup
+    package:com.miui.freeform
+    package:com.google.android.partnersetup
+    package:android.aosp.overlay
+    package:com.xiaomi.xmsfkeeper
+    package:com.xiaomi.mipicks
+    package:com.xiaomi.finddevice
+    package:com.xiaomi.joyose
+    package:com.google.android.connectivity.resources
+    package:com.google.android.feedback
+    package:com.google.android.printservice.recommendation
+    package:com.xiaomi.midrop
+    package:com.miui.cloudservice
+    package:com.miui.hybrid.accessory
+    package:com.miui.core.internal.editor.services
+    package:com.tencent.soter.soterserver
+    package:com.miui.audiomonitor
+    package:com.android.providers.partnerbookmarks
+    package:com.android.apps.tag
+    package:com.facebook.system
+    package:com.wdstechnology.android.kryten
+    package:com.miui.analytics
+    package:com.android.bookmarkprovider
+    package:com.qualcomm.location
+    package:com.miui.yellowpage
+    package:com.google.android.gms.location.history
+    package:com.miui.phone.carriers.overlay.h3g
+    package:com.xiaomi.discover
+    package:com.miui.fmservice

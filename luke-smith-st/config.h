@@ -46,7 +46,7 @@ int allowaltscreen = 1;
 
 /* allow certain non-interactive (insecure) window operations such as:
    setting the clipboard text */
-int allowwindowops = 0;
+int allowwindowops = 1;
 
 /*
  * draw latency range in ms - from new content/keypress/etc until drawing.
@@ -107,7 +107,7 @@ char *termname = "st-256color";
 unsigned int tabspaces = 4;
 
 /* bg opacity */
-float alpha = 1;
+float alpha = 0.9;
 float alphaOffset = 0.0;
 float alphaUnfocus;
 
@@ -156,8 +156,6 @@ static const char *colorname[] = {
 	"#ebdbb2", /* 259 -> fg */
 	"#181818",
 };
-
-
 // /*
 //  * Default colors (colorname index)
 //  * foreground, background, cursor, reverse cursor
