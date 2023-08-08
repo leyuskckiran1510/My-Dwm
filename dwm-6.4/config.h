@@ -1,36 +1,30 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const int topbar             = 1;        /* 0 means bottom bar */
-static const int showbar            = 1;        /* 0 means no bar */
-static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
-static const char *fonts[]          = { 
-										"MesloLGM Nerd Font:style=Regular:size=11",
-										"monospace:size=11",
-										"Noto Color Emoji:style=Regular:pixelsize=11:antialias=true:autohint=true",
-										"Noto Emoji:style=Regular:pixelsize=11:antialias=true:autohint=true"
-									};
-
-
+static const unsigned int snap      = 32;       /* snap pixel */
+static const int showbar            = 1;        /* 0 means no bar */
+static const int topbar             = 1;        /* 0 means bottom bar */
+static const char *fonts[]          = { "MesloLGM Nerd Font:style=Regular:size=11","monospace:size=11","Noto Color Emoji:style=Regular:pixelsize=11:antialias=true:autohint=true","Noto Emoji:style=Regular:pixelsize=11:antialias=true:autohint=true"};
 static const char dmenufont[]       = "MesloLGM Nerd Font:style=Regular:size=11";
-static const char sel_fg[] 			= "#f0bc92";
-static const char sel_bg[] 			= "#182c4b";
-static const char urg_fg[] 			= "#8dced7";
-static const char urg_bg[] 			= "#565F63";
-static const char norm_fg[] 		= "#f0bc92";
-static const char norm_bg[] 		= "#070d16";
-static const char sel_border[] 		= "#cfcfcf";
-static const char norm_border[]     = "#3dff00";
-static const char urg_border[] 		= "#565F63";
+static const char norm_fg[] = "#f0bc92";
+static const char norm_bg[] = "#070d16";
+static const char norm_border[] = "#3dff00";
+static const char sel_fg[] = "#f0bc92";
+static const char sel_bg[] = "#182c4b";
+static const char sel_border[] = "#cfcfcf";
+static const char urg_fg[] = "#8dced7";
+static const char urg_bg[] = "#565F63";
+static const char urg_border[] = "#565F63";
 
 static const char *colors[][3]      = {
     /*               fg           bg         border                         */
     [SchemeNorm] = { norm_fg,     norm_bg,   norm_border }, // unfocused wins
     [SchemeSel]  = { sel_fg,      sel_bg,    sel_border },  // the focused win
-    [SchemeUrg] =  { urg_fg,      urg_bg,    urg_border }, // for uegent and warnings
+    [SchemeUrg] =  { urg_fg,      urg_bg,    urg_border },
 };
 
+// #include "/home/tester/.cache/wal/colors-wal-dwm.h"
 
 /* tagging */				//Browsing0       Coding1   files2     terminal3   hacking/ctfs4  
 static const char *tags[] = { " \ue745 ", " \uf109 " , " \uf07b ", " \uf489 ", " \uf09c "," \ue23f ", " 📺 " };
@@ -41,23 +35,24 @@ static const Rule rules[] = {
     //     /^WM_NAME/{sub(/.* =/, "title:"); print}'
 
 	/* class             instance          title                      tags mask     isfloating   monitor */
-	{ "firefox",          NULL,             NULL,                      1,       	 0,           -1 },
-	{ "Brave-browser",   "brave-browser",  "New Tab - Brave",          1,            1,           -1 },
-	{ "Brave-browser",   "brave-browser",  "New Private Tab - Brave",  1<<5,         0,           -1 },
-	{ "Sublime_text",    "sublime_text",    NULL,                      1<<1,         1,           -1 },
-	{ "Nemo",			 "nemo",            NULL,                      1<<2,         0,           -1 },
-	{ "vlc",             "vlc",             NULL,                      1<<6,         0,           -1 },
-	{ "Insomnia",        "insomnia",        NULL,                      1<<4,         0,           -1 },
-	{ "St",              "st",              "terminal",                1<<3,         0,           -1 },
-	{ "XClock",          "xclock",			NULL,				       127, 		 1 , 		  -1 },
-	{ "Upwork",           NULL,				NULL,                      1<<3,         0,           -1 },
+	{ "firefox",         NULL,             NULL,                      1,       		0,           -1 },
+	{ "Brave-browser",  "brave-browser",  "New Tab - Brave",          1,            1,           -1 },
+	{ "Brave-browser",  "brave-browser",  "New Private Tab - Brave",  1<<5,         0,           -1 },
+	{ "Sublime_text",   "sublime_text",    NULL,                      1<<1,         1,           -1 },
+	{"Org.gnome.Nautilus","org.gnome.Nautilus", NULL,                 1<<2,         0,           -1 },
+	{"Nemo",			  "nemo",          NULL,                      1<<2,         0,           -1 },
+	{"vlc",               "vlc",           NULL,                      1<<6,         0,           -1 },
+	{"Insomnia",        "insomnia",        NULL,                      1<<4,         0,           -1 },
+	{"St",              "st",              "terminal",                1<<3,         0,           -1 },
+	{"XClock",          "xclock",			NULL,				      127, 			1 , 		 -1 },
+	{"Upwork",           NULL,				NULL,                     1<<3,         0,           -1 },
 
 };
 
 /* layout(s) */
-static const int nmaster     	= 2;    /* number of clients in master area */
-static const float mfact     	= 0.55; /* factor of master area size [0.05..0.95] */
-static const int resizehints 	= 1;    /* 1 means respect size hints in tiled resizals */
+static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const int nmaster     = 1;    /* number of clients in master area */
+static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
@@ -79,11 +74,12 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */ 
-static const char *dmenucmd[] 	= { "dmenu_run", "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
-static const char *termcmd[]  	= { "st","-t","terminal", NULL };
-static const char *brave[]    	= {"brave-browser",NULL};
-static const char *fileexp[]  	= {"nautilus",NULL};
-static const char *clipboard[] 	= {"copyq","toggle",NULL};
+static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
+static const char *termcmd[]  = { "st","-t","terminal", NULL };
+static const char *brave[] = {"brave-browser",NULL};
+static const char *fileexp[] = {"nautilus",NULL};
+//static const char *screenshot[] = {"gnome-screenshot","--interactive",NULL};
+static const char *clipboard[] = {"copyq","toggle",NULL};
 
 
 static const char *transparency_dec[] = {"picom-trans","-co","-5",NULL};
@@ -92,11 +88,12 @@ static const char *transparency_inc[] = {"picom-trans","-co","+5",NULL};
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ Mod4Mask,                     XK_a,      spawn,          {.v = dmenucmd } },
-	{ 0,                            Mod4Mask,  spawn,          {.v = dmenucmd } },
+	{ Mod4Mask,                     		0,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_w, 	   spawn,          {.v = brave } },
 	{ Mod4Mask,           			XK_e, 	   spawn,          {.v = fileexp } },
-
+	//{ Mod4Mask|ShiftMask,     		XK_s, 	   spawn,          {.v = screenshot } },
+	
 	{ Mod4Mask,     				XK_c, 	   spawn,          {.v = clipboard } },
 
 	
@@ -105,10 +102,9 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,          	XK_z, 	   spawn,          {.v = transparency_dec } },
 
 
-	{ Mod4Mask|ShiftMask,     		XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/scrsht c", NULL } }},
-	{ Mod4Mask|ControlMask,         XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/scrsht f", NULL } }},
+	{ Mod4Mask|ShiftMask,     		XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/scrsht", NULL } }},
 	{ MODKEY|ControlMask,          	XK_b, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/bgchange", NULL } }},
-	{ Mod4Mask,          	        XK_period, spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/emoji_chooser.bash", NULL } }},
+	{ Mod4Mask,          	        XK_period,  spawn,         {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/emoji_chooser.bash", NULL } }},
 	{ MODKEY|ControlMask,          	XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/allscript", NULL } }},
 
 	// Volume
@@ -146,8 +142,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ Mod4Mask,                     XK_Tab,    view,           {0} },
 
-	{ Mod4Mask,           			XK_Right,  rotateview,     {.i = +1} },
-	{ Mod4Mask,         		    XK_Left,   rotateview,     {.i = -1} },
+	{ Mod4Mask|ShiftMask,           XK_Tab,    rotateview,           {.i = +1} },
+	{ Mod4Mask|ControlMask,         XK_Tab,    rotateview,           {.i = -1} },
 
 	{ MODKEY,                       XK_Tab,    focusstack,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Tab,    focusstack,     {.i = -1 } },
