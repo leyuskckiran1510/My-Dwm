@@ -127,7 +127,7 @@ static const Key keys[] = {
 	
 	//Audio Handler
 	//mute/unmute
-	{ MODKEY|ControlMask,          	XK_l, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/audioch m",NULL } }},
+	{ Mod4Mask,          	        XK_m, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/audioch m",NULL } }},
 	//Audio Port/Device Selection
 	{ MODKEY|ControlMask,          	XK_p, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/audioch p",NULL } }},
 	//Audio Channel/Profiles Selection
