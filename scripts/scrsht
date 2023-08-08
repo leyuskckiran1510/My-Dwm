@@ -1,4 +1,17 @@
 #!/usr/bin/bash
-# this is tool or script to copy selected scrren shot to clip board
-(scrot -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f && rm $f' && dunstify -a "dummy" -r 9013 "Copied Selection To Clipboard") || dunstify "ErrorCopying"
-#scrot -s '/home/tester/Pictures/screenshots/temp/%F_%T_$wx$h.png'
+
+save_to(){
+    (scrot -f -s '/tmp/tscreen.png' && to=$(zenity --file-selection --filename="$HOME/Pictures" --save 2>/dev/null) &&
+    mv "/tmp/tscreen.png" $to  && dunstify -a "dummy" -r 9013 "Sucessfully Saved $to") ||
+     dunstify "ErrorCopying"
+
+}
+
+copy_sc(){
+    (scrot -f -s '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f && rm $f' && dunstify -a "dummy" -r 9013 "Copied Selection To Clipboard") || dunstify "ErrorCopying"
+}
+
+case $1 in
+    "f") save_to;;
+    *)  copy_sc;;
+esac
