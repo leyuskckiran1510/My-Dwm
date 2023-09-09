@@ -4,18 +4,20 @@
 
 
 _togglemute(){
-	pactl set-sink-mute 1 toggle
+	(pactl set-sink-mute 0 toggle ) ||(pactl set-sink-mute 1 toggle) 
 }
 
 _switchport(){
 	active_ch=$(pacmd list-sinks  |awk '/\* index/{print$3}')  # ------------v------ to remove tabs as tabs dont get rendered in dmenu
- 	pacmd list-sinks | grep -v active |awk -F ':' '/-output-/{print$1}' | awk '{print$1}' |dmenu -p "Select Audio Port [name]" -i -l 4 | awk '/[a-zA-Z0-9\-]/{print$1}' |xargs -I{} pactl set-sink-port 1 {}
-	# hello world		
+ 	name=$(pacmd list-sinks | grep -v active |awk -F ':' '/-output-/{print$1}' | awk '{print$1}' |dmenu -p "Select Audio Port [name]" -i -l 4 | awk '/[a-zA-Z0-9\-]/{print$1}')
+	(pactl set-sink-port 0 $name) || (pactl set-sink-port 1 $name)
 }
 
 _switchch(){
 	check=$(pactl list short sinks|grep mono_audio)
 	if [ -z "$check" ]; then
+        master="master=$(pacmd info  | awk '/sink:/{print$3}' | tr -d '<>')"
+        echo $master
 		pacmd load-module module-remap-sink sink_name=mono_audio master=alsa_output.pci-0000_00_1f.3.analog-stereo channels=1 channel_map=mono
 	fi
 	pactl list short sinks | awk '{print$2"    "$4"    "$5}'|dmenu -p "Select Audio Channel [name|bitrate|channel]" -i -l 4 |awk '{print$1}'|xargs -I{} pactl set-default-sink {}

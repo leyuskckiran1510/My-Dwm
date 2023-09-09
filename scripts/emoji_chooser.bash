@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 path_to_emojis="$HOME/scripts/emoji_with_name.md"
-choosed=$(cat "$path_to_emojis"| dmenu -p "Emojies:-" -l 7)
+choosed=$(cat "$path_to_emojis"| dmenu -p "Sandesh:-" -l 7)
 
 #copy the selected emoji to clipboard
 echo $choosed | awk '{print$1" "}' | sed 's/ //'|tr -d '\n' | xclip -selection clipboard

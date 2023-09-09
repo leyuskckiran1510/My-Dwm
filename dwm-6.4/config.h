@@ -92,7 +92,7 @@ static const char *transparency_inc[] = {"picom-trans","-co","+5",NULL};
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ Mod4Mask,                     XK_a,      spawn,          {.v = dmenucmd } },
-	{ 0,                            Mod4Mask,  spawn,          {.v = dmenucmd } },
+
 	{ MODKEY|ControlMask,           XK_t, 	   spawn,          {.v = termcmd } },
 	{ MODKEY|ControlMask,           XK_w, 	   spawn,          {.v = brave } },
 	{ Mod4Mask,           			XK_e, 	   spawn,          {.v = fileexp } },

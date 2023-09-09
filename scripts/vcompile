@@ -5,35 +5,12 @@ year=$(date +%Y)
 month=$(date +%m)
 day=$(date +%d)
 
-# this was old and comparativly slower method to compile
-# function final(){
-#     vids="/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
-#     ffmpeg -safe 0 -f concat -i "$vids" -c:v libx264 -preset fast -pix_fmt yuv420p "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4" \
-#     >> "/home/tester/Videos/TimeLapse/$year/$month/$day/final_compile.log" || echo "[Final] There Was Some Error Check Log File"
-
-# }
-
-# function compile2(){
-#     output=""
-#     if [[ $1 == *".used" ]]; then
-#         output="resedue.mp4"
-#     else
-#         output="todaycompile.mp4"
-#         echo "file '/home/tester/Videos/random/spong_bob_the_next_day.mp4' " >> "/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
-#     fi
-#     ffmpeg -framerate 30 -pattern_type glob -i "$1/*.jpg" -c:v libx264 -preset fast -threads 4 -f mp4 "/home/tester/Videos/TimeLapse/$year/$month/$day/$output" \
-#     >> "/home/tester/Videos/TimeLapse/$year/$month/$day/compile.log" || echo "[Head] ($output) There Was Some Error Check Log File"
-#     echo "file '/home/tester/Videos/TimeLapse/$year/$month/$day/$output'" >> "/home/tester/Videos/TimeLapse/$year/$month/$day/vids.txt"
-
-# }
-
-
-# fatser as now it compiles the images direclty into a video file insted of waiting to compile
-# each individual folder into a single video and concanate it
 list_file(){
-    ls $1/* | awk -F ':' '{print($1)}' | xargs -I@ echo "file '@'" >> "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"
-    echo "Done Listing.. this files...$1"
-    echo -e "\n\n"
+    cd "$1" &&
+    for file in $(ls); do
+      echo "file '$PWD/$file'" >> "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"
+    done
+    echo "Done Listing.. this folder...$1"
 }
 
 _book_mark(){
@@ -44,11 +21,18 @@ _book_mark(){
     echo "file:///home/tester/Videos/TimeLapse/$year/$month/$day" | tee -a "$book_mark_path/bookmarks"
 }
 compile(){
-    ffmpeg -safe 0 -f concat -i "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"  -c:v libx264 -preset fast -threads 4 "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4" && _book_mark 
+    ffmpeg -safe 0 -f concat -i "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"  -c:v libx264  -preset fast -threads 4 "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4" && _book_mark 
 }
 
+__test(){
+    base_dir="/home/tester/Pictures/TimeLapse"
+    mkdir -p "/home/tester/Videos/TimeLapse/$year/$month/$day/"
+    today_now="$(date +'%Y/%m/%d')"
+    dir2="$base_dir/$year/$month/$day"
+    list_file "$dir2"
+}
 
-function _ready(){
+_ready(){
     base_dir="/home/tester/Pictures/TimeLapse"
     mkdir -p "/home/tester/Videos/TimeLapse/$year/$month/$day/"
     today_now="$(date +'%Y/%m/%d')"
@@ -60,10 +44,7 @@ function _ready(){
     dir2="$base_dir/$year/$month/$day"
     mv "$dir2" "$dir2.done" && list_file "$dir2.done"
     compile
-
-#    echo "check the file and make sure it has everything needed If Yes the Run this"
-#    echo ffmpeg -safe 0 -f concat -i "/home/tester/Videos/TimeLapse/$year/$month/$day/list.txt"  -c:v libx264 -preset fast -threads 4 "/home/tester/Videos/TimeLapse/$year/$month/$day/output.mp4"
-
 }
 _ready
+# __test
 # _book_mark

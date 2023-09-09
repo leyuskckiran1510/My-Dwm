@@ -1,3 +1,0 @@
-while true;do
-    dwm &> ~/.dwm.log
-done
