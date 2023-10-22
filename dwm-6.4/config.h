@@ -14,6 +14,12 @@ static const char *fonts[]          = {
 
 
 static const char dmenufont[]       = "MesloLGM Nerd Font:style=Regular:size=11";
+
+static unsigned int baralpha        = 0xd0;
+                                    /*  0xffU */
+static unsigned int borderalpha     = 0x77U;
+
+
 static const char sel_fg[] 			= "#f0bc92";
 static const char sel_bg[] 			= "#182c4b";
 static const char urg_fg[] 			= "#8dced7";
