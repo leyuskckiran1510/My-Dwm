@@ -37,6 +37,21 @@ static const char *colors[][3]      = {
     [SchemeUrg] =  { urg_fg,      urg_bg,    urg_border }, // for uegent and warnings
 };
 
+typedef struct {
+ const char *name;
+ const void *cmd;
+} Sp;
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {"st", "-n", "noteapp", "-g", "144x41", "-e", "vim", "/tmp/node.md", NULL };
+const char *spcmd3[] = {"st","-n","music","-g","144x41","-e","mplayer","\"$(ls ~/Music/Song/* | fzf)\"", NULL };
+static Sp scratchpads[] = {
+ /* name          cmd  */
+ {"spterm",      spcmd1},
+ {"noteapp",     spcmd2},
+ {"music",       spcmd3},
+};
+
+
 
 /* tagging */				//Browsing0       Coding1   files2     terminal3   hacking/ctfs4  
 static const char *tags[] = { " \ue745 ", " \uf109 " , " \uf07b ", " \uf489 ", " \uf09c "," \ue23f ", " 📺 " };
@@ -51,12 +66,18 @@ static const Rule rules[] = {
 	{ "Brave-browser",   "brave-browser",  "New Tab - Brave",          1,            1,           -1 },
 	{ "Brave-browser",   "brave-browser",  "New Private Tab - Brave",  1<<5,         0,           -1 },
 	{ "Sublime_text",    "sublime_text",    NULL,                      1<<1,         1,           -1 },
-	{ "Nemo",			 "nemo",            NULL,                      1<<2,         0,           -1 },
+	{ "Nemo",			        "nemo",            NULL,                      1<<2,         0,           -1 },
 	{ "vlc",             "vlc",             NULL,                      1<<6,         0,           -1 },
 	{ "Insomnia",        "insomnia",        NULL,                      1<<4,         0,           -1 },
 	{ "St",              "st",              "terminal",                1<<3,         0,           -1 },
-	{ "XClock",          "xclock",			NULL,				       127, 		 1 , 		  -1 },
+	{ "XClock",          "xclock",			    NULL,				               127, 		     1 , 		     -1 },
 	{ "Upwork",           NULL,				NULL,                      1<<3,         0,           -1 },
+
+
+  { NULL,               "spterm",           NULL,                         SPTAG(0),   1,       -1 },
+  { NULL,               "noteapp",          NULL,                         SPTAG(1),   1,       -1 },
+  { NULL,               "music",            NULL,                         SPTAG(2),   1,       -1 },
+
 
 };
 
@@ -109,6 +130,10 @@ static const Key keys[] = {
 	
 	{ MODKEY,			            XK_z, 	   spawn,          {.v = transparency_inc } },
 	{ MODKEY|ControlMask,          	XK_z, 	   spawn,          {.v = transparency_dec } },
+
+  { Mod4Mask,                   XK_s,                     togglescratch,  {.ui = 0 } },
+  { Mod4Mask,                   XK_d,                     togglescratch,  {.ui = 1 } },
+  { Mod4Mask,                   XK_f,                     togglescratch,  {.ui = 2 } },
 
 
 	{ Mod4Mask|ShiftMask,     		XK_s, 	   spawn,          {.v = (const char*[]){ "/usr/bin/bash", "-c","~/scripts/scrsht c", NULL } }},
