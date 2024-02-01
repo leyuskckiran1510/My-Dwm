@@ -41,8 +41,8 @@ typedef struct {
  const char *name;
  const void *cmd;
 } Sp;
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
-const char *spcmd2[] = {"st", "-n", "noteapp", "-g", "144x41", "-e", "vim", "/tmp/node.md", NULL };
+const char *spcmd1[] = {"kitty", "--name", "spterm","--class","spterm", NULL };
+const char *spcmd2[] = {"kitty", "--name", "noteapp","--class","noteapp","-e", "vim", "/tmp/node.md", NULL };
 const char *spcmd3[] = {"st","-n","music","-g","144x41","-e","mplayer","\"$(ls ~/Music/Song/* | fzf)\"", NULL };
 static Sp scratchpads[] = {
  /* name          cmd  */
@@ -58,8 +58,8 @@ static const char *tags[] = { " \ue745 ", " \uf109 " , " \uf07b ", " \uf489 ", "
 //                                                                                          private5     vlc/video/audios6
 static const Rule rules[] = {
 	// xprop | awk '
-    //     /^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print}
-    //     /^WM_NAME/{sub(/.* =/, "title:"); print}'
+  //       /^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print}
+  //       /^WM_NAME/{sub(/.* =/, "title:"); print}'
 
 	/* class             instance          title                      tags mask     isfloating   monitor */
 	{ "firefox",          NULL,             NULL,                      1,       	 0,           -1 },
@@ -70,12 +70,13 @@ static const Rule rules[] = {
 	{ "vlc",             "vlc",             NULL,                      1<<6,         0,           -1 },
 	{ "Insomnia",        "insomnia",        NULL,                      1<<4,         0,           -1 },
 	{ "St",              "st",              "terminal",                1<<3,         0,           -1 },
+  { "kitty",           "kitty",           "terminal",                1<<3,         0,           -1 },
 	{ "XClock",          "xclock",			    NULL,				               127, 		     1 , 		     -1 },
 	{ "Upwork",           NULL,				NULL,                      1<<3,         0,           -1 },
 
 
-  { NULL,               "spterm",           NULL,                         SPTAG(0),   1,       -1 },
-  { NULL,               "noteapp",          NULL,                         SPTAG(1),   1,       -1 },
+  { "spterm",               "spterm",           NULL,                         SPTAG(0),   1,       -1 },
+  { "noteapp",               "noteapp",          NULL,                         SPTAG(1),   1,       -1 },
   { NULL,               "music",            NULL,                         SPTAG(2),   1,       -1 },
 
 
@@ -108,6 +109,7 @@ static const Layout layouts[] = {
 /* commands */ 
 static const char *dmenucmd[] 	= { "dmenu_run", "-fn", dmenufont, "-nb", norm_bg, "-nf", norm_fg, "-sb", sel_bg, "-sf", sel_fg, NULL };
 static const char *termcmd[]  	= { "st","-t","terminal", NULL };
+// static const char *termcmd[]    = { "kitty","-T","terminal", NULL };
 static const char *brave[]    	= {"brave-browser",NULL};
 static const char *fileexp[]  	= {"nautilus",NULL};
 static const char *clipboard[] 	= {"copyq","toggle",NULL};
