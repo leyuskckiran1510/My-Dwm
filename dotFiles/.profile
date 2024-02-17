@@ -34,3 +34,11 @@ fi
 if [ -d "$HOME/.local/bin" ]; then
 	PATH="$HOME/.local/bin:$PATH"
 fi
+
+export CHROME_EXECUTABLE=/usr/bin/brave-browser
+
+# disable touch pad while typing
+syndaemon -K -i 0.5 -R -d &
+
+# run slstatus
+slstatus &

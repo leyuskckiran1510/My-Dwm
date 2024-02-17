@@ -1,7 +1,6 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -11,7 +10,7 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-HISTIGNORE='ls:clear:cd:systemctl suspend'
+HISTIGNORE='ls:clear:cd:systemctl suspend:shutdown now'
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -43,7 +42,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+# force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -57,33 +56,31 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 _OLD_PATH="$PWD"
-
+_fncy=1
 costume_ps1(){
 
-    first_line="[$USER] $(ls |wc -l)(files)"
-    wifi_name="$(iwgetid  | awk -F ':"' '{print$2}' | sed s/\"//)"
+    if [[ _fncy -gt 0 ]]; then    
+      first_line="[$USER] $(ls |wc -l)(files)"
+      wifi_name="$(iwgetid  | awk -F ':"' '{print$2}' | sed s/\"//)"
 
-    first_line="$first_line | 🌐 $wifi_name"
+      first_line="$first_line | 🌐 $wifi_name"
 
-    {
-        disk="$(timeout 0.02 du -sh "$(pwd)" 2> /dev/null)"
-        # 124 is a error code for timeout, to avoid waiting the file/folder size computations 
-        if [[ "$?" != "124" ]]; then
-            first_line="$first_line | 💾 $(echo $disk | awk '{print$1}')"
-        fi
+      {
+          disk="$(timeout 0.02 du -sh "$(pwd)" 2> /dev/null)"
+          if [[ "$?" != "124" ]]; then
+              first_line="$first_line | 💾 $(echo $disk | awk '{print$1}')"
+          fi
 
-    }
-    {
-        # __git_ps1 is preinstalled with every git installs
-        git_state=$(__git_ps1 "[%s]")
-        if [[ "$git_state" != "" ]]; then
-            first_line="$first_line | 📂 $git_state"
-        fi
+      }
+      first_line="$first_line | ⌚ $(date +%X)"
+      {
+          git_state=$(__git_ps1 "[%s]")
+          if [[ "$git_state" != "" ]]; then
+              first_line="$first_line | 📂 $git_state"
+          fi
 
-    }
-
-   
-    # echo -e "\033[03;33m$padding$first_line\033[00m"
+      }
+    fi
 
     thome="$(echo $HOME | sed 's/\/$//')"
     local path="${1/#$thome/\~}"
@@ -91,11 +88,12 @@ costume_ps1(){
     for (( i = 0; i < $COLUMNS - ${#first_line} - 14 - ${#path}; i++ )); do
         padding=" $padding"
     done
-    echo -e "\033[01;35m${path}\033[03;33m$padding$first_line\033[00m"
+    echo -e "\033[01;35m${path}\033[0m\033[03;33m$padding$first_line\033[00m"
     echo " "
     unset padding first_line
 
 }
+
 
 
 
@@ -138,86 +136,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 alias ls='ls -w60 --color=auto'
-
-_kill(){
-    if (kill $1 &> /tmp/kill_output) ; then
-      echo "PID:[ $1 ] message:- Sucess "
-    else
-      echo "PID:[ $1 ] message:- {$(cat /tmp/kill_output|awk -F '-' '{print$2}')}"
-    fi
-    rm /tmp/kill_output
-}
-
-_stop() {
-  for pid in $(ps aux | grep -i $1 | grep -v grep | awk  '{print $2}');do
-    _kill $pid
-  done
-}
-
-
-_tpaste(){
-    if [ "$1" == "-s" ]; then
-        if [ "$3" == "-c" ];then
-                PATTREN="s/\x1b[^m]+m//g"
-        else
-                PATTREN="s/\?\?//g"
-        fi
-        if [ -f "$2" ]; then
-                input=$(cat "$2")
-        else
-                input="$2"
-        fi
-
-        echo "$input" | ssh -T snips.sh  | grep ":[^ ]\+" | xargs echo | awk -F "┃" '{print$2}' |sed -r "$PATTREN"
-        return
-    fi
-    if [ "$1" == "-h" ]; then
-        if [ "$3" == "-c" ];then
-                PATTREN="s/\x1b[^m]+m//g"
-        else
-                PATTREN="s/\?\?//g"
-        fi
-        if [ -f "$2" ]; then
-            input=$(cat "$2")
-        else
-            input="$2"
-        fi
-        echo "$input" | ssh -T snips.sh  | grep ":[^ ]\+" | xargs echo | awk -F "┃" '{print$3}' |sed -r "$PATTREN"
-        return
-    fi
-    if [ "$1" == "-n" ]; then
-        if [ -f "$2" ]; then
-            cat "$2" | ssh -T snips.sh
-        else
-            echo "$2" | ssh -T snips.sh
-        fi
-        return
-    fi
-    if [ -f "$1" ]; then
-                input=$(cat "$1")
-    else
-                input="$1"
-    fi
-
-    if [ "$3" == "-c" ];then
-                PATTREN="s/\x1b[^m]+m//g"
-    else
-                PATTREN="s/\?\?//g"
-    fi
-    echo "$input" | ssh -T snips.sh  | grep ":[^ ]\+" | xargs echo | awk -F "┃" '{print$2"\n"$3}' |sed -r "$PATTREN"
-}
-_bac_up(){
-	cp $1 $1.bak
-}
-
-alias stop=_stop
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias st='st &'
-alias shareit=_tpaste
-alias src='source ./venv/bin/activate || source ./virtual/bin/activate'
-alias csrc='python -m venv venv || python3 -m venv virtual'
-alias copy='xclip -selection clipboard'
-alias backup=_bac_up
+alias rm="rm -i"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -238,25 +157,15 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-# if [ -n "$(ps aux | grep -v grep| grep ssh-agent)" ];then
-# 	   _stop ssh-agent &>/dev/null
-#        echo "already active" && clear
-       
-
-# fi
-export PATH=$PATH:~/scripts
-export PATH=$PATH:/home/tester/Applications
 
 
-
-# This are the ssh-agent setup, so that I don;t have to type pashphrase to unlock my 
-# private keys .. 😉
+xsetroot -name "$(date +%X)"
 eval "$(ssh-agent -s)"
 echo | SSH_ASKPASS=/home/tester/.secret.pmk setsid -w ssh-add /home/tester/.ssh/id_rsa && clear
+echo | SSH_ASKPASS=/home/tester/.secret.pmk setsid -w ssh-add /home/tester/.ssh/id_rsa_leyuskc && clear
 
 kill_ssh_agent() {
-    # killing the ssh-agent of the current terminal instance to avoid huge list of ssh-agent for each terminal
     kill $SSH_AGENT_PID
 }
-# trap basically lets me run specific function when the current active terminal ends/stops
+
 trap kill_ssh_agent EXIT
