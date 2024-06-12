@@ -1,0 +1,3 @@
+[submodule "libxft-bgra"]
+	path = libxft-bgra
+	url = https://github.com/uditkarode/libxft-bgra

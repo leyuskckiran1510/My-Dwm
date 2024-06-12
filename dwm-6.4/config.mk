@@ -10,8 +10,8 @@ MANPREFIX = ${PREFIX}/share/man
 
 # X11INC = /usr/X11R6/include
 # X11LIB = /usr/X11R6/lib
-X11INC = $(HOME)/DwmDE/libxft/include
-X11LIB = $(HOME)/DwmDE/libxft/src/.libs
+X11INC = $(HOME)/DwmDE/libxft-bgra/include
+X11LIB = $(HOME)/DwmDE/libxft-bgra/src/.libs
 
 
 # Xinerama, comment if you don't want it

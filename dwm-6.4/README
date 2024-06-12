@@ -1,3 +1,16 @@
+# you need to build libxft
+[libxft-bgra](https://github.com/uditkarode/libxft-bgra)
+It requies following packages
+
+```
+sudo apt install libtool xutils-dev autoconf libx11-dev libxext-dev libxrender-dev libfreetype-dev libxft-dev -y
+```
+
+and for Dwm  and lukes-st we need these packages
+```
+sudo apt install libxinerama-dev libharfbuzz-dev 
+```
+
 dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.

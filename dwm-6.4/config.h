@@ -1,6 +1,10 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
+
+#ifndef  NULL
+    #include <stddef.h>
+#endif
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int showbar            = 1;        /* 0 means no bar */
 static const unsigned int snap      = 32;       /* snap pixel */
@@ -54,7 +58,11 @@ static Sp scratchpads[] = {
 
 
 /* tagging */				//Browsing0       Coding1   files2     terminal3   hacking/ctfs4  
-static const char *tags[] = { " \ue745 ", " \uf109 " , " \uf07b ", " \uf489 ", " \uf09c "," \ue23f ", " 📺 " };
+// static const char *tags[] = { " \ue745 ", " \uf109 " , " \uf07b ", " \uf489 ", " \uf09c "," \ue23f ", " 📺 " };
+
+
+static const char *tags[] = {"1","2","3","4","5","6","7"};
+
 //                                                                                          private5     vlc/video/audios6
 static const Rule rules[] = {
 	// xprop | awk '
@@ -70,7 +78,7 @@ static const Rule rules[] = {
 	{ "vlc",             "vlc",             NULL,                      1<<6,         0,           -1 },
 	{ "Insomnia",        "insomnia",        NULL,                      1<<4,         0,           -1 },
 	{ "St",              "st",              "terminal",                1<<3,         0,           -1 },
-  { "kitty",           "kitty",           "terminal",                1<<3,         0,           -1 },
+    { "kitty",           "kitty",           "terminal",                1<<3,         0,           -1 },
 	{ "XClock",          "xclock",			    NULL,				               127, 		     1 , 		     -1 },
 	{ "Upwork",           NULL,				NULL,                      1<<3,         0,           -1 },
 

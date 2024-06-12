@@ -2,7 +2,7 @@
 
 function send_notification() {
     volume=$(amixer sget Master | grep -oP '\d+(?=%)')
-    dunstify -a "changevolume" -u low -r "9993" -h int:value:"$volume" -i "~/Pictures/icons/sound.png" "Volume: ${volume}%" -t 2000
+    dunst -a "changevolume" -u low -r "9993" -h int:value:"$volume" -i "~/Pictures/icons/sound.png" "Volume: ${volume}%" -t 2000
 }
 
 send_notification

@@ -4,13 +4,17 @@
 
 
 _togglemute(){
-	(pactl set-sink-mute 0 toggle ) ||(pactl set-sink-mute 1 toggle) 
+    for id in $(pactl list short sinks | awk '{print$1}'); do
+       pactl set-sink-mute $id toggle
+    done;
 }
 
 _switchport(){
 	active_ch=$(pacmd list-sinks  |awk '/\* index/{print$3}')  # ------------v------ to remove tabs as tabs dont get rendered in dmenu
- 	name=$(pacmd list-sinks | grep -v active |awk -F ':' '/-output-/{print$1}' | awk '{print$1}' |dmenu -p "Select Audio Port [name]" -i -l 4 | awk '/[a-zA-Z0-9\-]/{print$1}')
-	(pactl set-sink-port 0 $name) || (pactl set-sink-port 1 $name)
+ 	name=$(pacmd list-sinks | grep -v active |awk -F ':' '/-output-/{print$1}' | awk '{print$1}' |dmenu -p "Select Audio Port [name]" -i -l 4 | awk '/[a-zA-Z0-9\-]/{print$1}');
+    for id in $(pactl list short sinks | awk '{print$1}'); do
+        pactl set-sink-port $id $name
+    done;
 }
 
 _switchch(){
