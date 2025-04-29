@@ -10,7 +10,7 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-HISTIGNORE='ls:clear:cd:systemctl suspend:shutdown now'
+HISTIGNORE='ls:clear:cd:systemctl suspend:shutdown now:cp:rm'
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -56,10 +56,10 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 _OLD_PATH="$PWD"
-_fncy=1
+_f=1
 costume_ps1(){
 
-    if [[ _fncy -gt 0 ]]; then    
+    if [[ _f -gt 0 ]]; then    
       first_line="[$USER] $(ls |wc -l)(files)"
       wifi_name="$(iwgetid  | awk -F ':"' '{print$2}' | sed s/\"//)"
 
@@ -169,3 +169,4 @@ kill_ssh_agent() {
 }
 
 trap kill_ssh_agent EXIT
+alias python='python3'

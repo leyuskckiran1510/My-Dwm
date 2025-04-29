@@ -42,3 +42,11 @@ syndaemon -K -i 0.5 -R -d &
 
 # run slstatus
 slstatus &
+#syncthing &
+/home/tester/.screenlayout/left_monitor.sh &
+dunst &
+copyq &
+/usr/lib/x86_64-linux-gnu/libexec/kdeconnectd &
+~/scripts/bgchange &
+pulseaudio &
+pactl set-default-sink $(pactl list sinks | grep Name | awk -F ': ' '{print $2}' | grep pci) &A

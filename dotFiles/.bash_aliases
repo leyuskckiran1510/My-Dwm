@@ -46,12 +46,12 @@ _calculator(){
     echo "$@ = $res"
 }
 _kill(){
-    if (kill $1 &> /tmp/kill_output) ; then
+    if (kill -9 $1 &> /tmp/kill_output) ; then
       echo "PID:[ $1 ] message:- Sucess "
     else
       echo "PID:[ $1 ] message:- {$(cat /tmp/kill_output|awk -F '-' '{print$2}')}"
     fi
-    rm /tmp/kill_output
+    rm -f /tmp/kill_output
 }
 
 _stop() {
@@ -146,18 +146,24 @@ _src(){
 
 _csrc(){
     activator="python -m venv"
-    status=$(uv 2&>/dev/null)
-    if [ $? ];then
-        activator="uv venv"
-    else
-        echo "Uv is not installed using python's venv module"
-        echo "you can install uv as" 
-        echo -e "\t\t\tpip install uv"
-    fi
+    #status=$(uv 2&>/dev/null)
+    #if [ $? ];then
+    #    activator="uv venv"
+    #else
+    #    echo "Uv is not installed using python's venv module"
+    #    echo "you can install uv as" 
+    #    echo -e "\t\t\tpip install uv"
+    #fi
     echo -e ".venv\nvenv\nvirtual" | dmenu -l 10 -p "Choose the Virtual Folder Name" | xargs -I@  $activator @
     if [ $? ];then
         _src
     fi 
+}
+_branch_diff(){
+    for branch in $(git branch --format='%(refname:short)' --no-merged); do
+        git diff $branch;
+        echo $branch;
+    done
 }
 
 alias stop=_stop
@@ -166,7 +172,7 @@ alias stB=_stB
 alias shareit=_tpaste
 alias src=_src
 alias csrc=_csrc
-alias copy='xclip -selection clipboard'
+alias copy='xargs echo -n | xclip -selection clipboard'
 alias backup=_bac_up
 
 alias bright='sudo chmod 0777 /sys/class/backlight/intel_backlight/brightness'
@@ -185,3 +191,8 @@ alias timeit="time"
 alias Time="date +%X"
 alias serve="python -m http.server"
 alias calc="_calculator"
+alias branch_diff="_branch_diff"
+alias git_acp="git add .;git commit;git push;"
+alias python="python3"
+
+alias cls='clear'

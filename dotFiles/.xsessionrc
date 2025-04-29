@@ -1,11 +1,3 @@
 #!/usr/bin/bash
-#slstatus &
 picom --backend glx --vsync &
-dunst &
-/usr/lib/x86_64-linux-gnu/libexec/kdeconnectd &
-~/scripts/bgchange &
-pulseaudio &
-copyq &
-#/home/tester/scripts/screenrec &
 setxkbmap -option caps:escape &
-xsetroot -name "_$(date +%D)_"
