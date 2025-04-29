@@ -63,13 +63,12 @@ static const char unknown_str[] = "n/a";
  * wifi_essid          WiFi ESSID                      interface name (wlan0)
  */
 static const struct arg args[] = {
-	{ run_command, " %3s|", "amixer sget Master | awk -F\"[][]\" '/%/ { print $2 }' | head -n1" },
-	{ cpu_perc, "[ %s%%]|", NULL},
+	{ run_command, " %3s|", "pactl get-sink-volume @DEFAULT_SINK@ | awk -F'/' '/Volume/ {gsub(/ /,\"\"); print $2; exit}'" },
+    { cpu_perc, "[ %s%%]|", NULL},
 	{ ram_perc, "[ %s%%]|", NULL},
 	{battery_state, "[%s","BAT0"},
 	{battery_perc, "%s%%]|","BAT0"},
 	{ datetime, "[%s]|",   "%x|%I:%M" },
-	// {wifi_essid, "%s", "wlp1s0"},
     {netspeed_rx,"[%5s/","wlp1s0"},
     {netspeed_tx,"%5s] ","wlp1s0"},
 };

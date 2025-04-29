@@ -18,7 +18,7 @@ unins(){
 
 	echo "Starting...."	
 	for i in $(cat $1); do
-		adb shell pm uninstall $i && echo "Sucessfully Deleted $i" || echo "Failed To delete $i";
+		adb shell pm uninstall user 0 -k $i && echo "Sucessfully Deleted $i" || echo "Failed To delete $i";
 	done;
 }
 
