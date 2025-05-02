@@ -1,28 +1,15 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-#feh --bg-fill ~/Pictures/wallpaper/wallpaper.png
-#!/bin/bash
+mapfile -d '' -t wallpapers < <(find ~/Pictures/wallpaper/ -type f -print0 | grep -zEi '\.(png|jpe?g)$')
 
-# Get the list of wallpaper files
-wallpapers=($(ls ~/Pictures/wallpaper/* | grep -E "(png|jpg)"))
+if [[ ${#wallpapers[@]} -eq 0 ]]; then
+  echo "No wallpapers found."
+  exit 1
+fi
 
-# for (( i = 0; i < ${#wallpapers[@]}; i++ )); do
-#     echo ${wallpapers[i]}
-# done
-
-
-# Select a random wallpaper file
-# random
-# random_wallpaper=${wallpapers[$RANDOM % ${#wallpapers[@]}]}
-# Accoring to the DAY
-random_wallpaper=${wallpapers[$(date +"%S") % ${#wallpapers[@]}]}
+index=$((10#$(date +%S) % ${#wallpapers[@]}))
+random_wallpaper="${wallpapers[$index]}"
 
 feh --bg-fill "$random_wallpaper"
-# wal -l $random_wallpaper &
 
-#convert -crop 100%x120%+0-30%  ~/Pictures/wallpaper/wallpaper_the_copy.png  ~/Pictures/wallpaper/wallpaper_the_copy.png
-#convert -crop 100%x120%+0-30%  ~/Pictures/wallpaper/test.png  ~/Pictures/wallpaper/wallpaper_the_copy.png
-
-# Make a copy for brave browser
-#cp ~/Pictures/wallpaper/wallpaper_the_copy.png /home/tester/.config/BraveSoftware/Brave-Browser/Default/sanitized_background_images/wallpaper.png
-cp  $random_wallpaper  /home/tester/.config/BraveSoftware/Brave-Browser/Default/sanitized_background_images/wallpaper.png
+cp "$random_wallpaper" "/home/tester/.config/BraveSoftware/Brave-Browser/Default/sanitized_background_images/wallpaper.png"
